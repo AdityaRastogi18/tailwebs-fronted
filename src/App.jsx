@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopyright } from "@fortawesome/free-solid-svg-icons";
 
 const Login = lazy(() => import("./pages/Login"));
+const SignUp = lazy(() => import("./pages/SignUp"));
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <div className="container flex h-full items-center justify-center">
           <Switch>
             <Route path="/login" component={Login} />
+            <Route path="/signup" component={SignUp} />
           </Switch>
         </div>
         <footer className="bottom-0 text-center py-4 bg-gray-100 mt-4">

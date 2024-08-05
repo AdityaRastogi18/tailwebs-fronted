@@ -9,70 +9,99 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState({});
 
   const togglePassword = () => {
     setShowPassword(!showPassword);
   };
 
+  const updateFormData = (e, field) => {
+    setErrors({ ...errors, [field]: "" });
+    setFormData({ ...formData, [field]: e.target.value });
+  };
+
+  const handleValidation = () => {
+    const newErrors = {};
+    if (!formData.email) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Email address is invalid";
+    }
+    if (!formData.password) {
+      newErrors.password = "Password is required";
+    } else if (formData.password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters long";
+    }
+    return newErrors;
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("form", formData);
-    const result = await Api.login(formData);
-    console.log(result);
+    const newErrors = handleValidation();
+    if (Object.keys(newErrors).length === 0) {
+      const urlEncodedData = new URLSearchParams(formData).toString();
+      const result = await Api.login(urlEncodedData);
+      // todo - Handle login result
+    } else {
+      setErrors(newErrors);
+    }
   };
 
   return (
-    <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-xs sm:max-w-sm lg:max-w-md ">
-      <h2 className="text-2xl font-bold mb-6 text-gray-900 text-center">
-        Login
-      </h2>
-      <form>
+    <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-xs sm:max-w-sm lg:max-w-md">
+      <img
+        src="/images/tailwebsLogo.png"
+        alt="tailwebsLogo"
+        className="h-8 w-2/4 mb-6"
+      />
+      <form onSubmit={handleLogin}>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Enter your email:
+          <label className="label">
+            Enter your email <span className="text-red-500">*</span>
           </label>
           <input
             type="email"
             placeholder="xyz@gmail.com"
-            className="form-input"
+            className={`form-input w-full px-3 py-2 border rounded-lg ${
+              errors.email ? "border-red-500" : ""
+            }`}
             value={formData.email}
-            onChange={(e) =>
-              setFormData({ ...formData, email: e.target.value })
-            }
+            onChange={(e) => updateFormData(e, "email")}
           />
+          {errors.email && <p className="error-msg">{errors.email}</p>}
         </div>
-        <div className="mb-6 relative">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Password:
-          </label>
-          <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Enter your password"
-            className="form-input pr-10"
-            value={formData.password}
-            onChange={(e) =>
-              setFormData({ ...formData, password: e.target.value })
-            }
-          />
-          <button
-            type="button"
-            onClick={togglePassword}
-            className="absolute inset-y-0 right-0 flex items-center pr-3"
-          >
-            <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-          </button>
-          <a href="#" className="link mt-2 text-end w-full">
-            Forgot Password?
-          </a>
+        <div className="mb-6 ">
+          <div className="relative">
+            <label className="label">
+              Password <span className="text-red-500">*</span>
+            </label>
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter your password"
+              className={`form-input w-full px-3 py-2 border rounded-lg pr-10 ${
+                errors.password ? "border-red-500" : ""
+              }`}
+              value={formData.password}
+              onChange={(e) => updateFormData(e, "password")}
+            />
+            <button
+              type="button"
+              onClick={togglePassword}
+              className="absolute bottom-0 right-0 flex items-center pr-3 h-[44px]"
+            >
+              <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+            </button>
+          </div>
+          {errors.password && <p className="error-msg">{errors.password}</p>}
         </div>
         <div className="flex items-center justify-between">
-          <button type="button" className="btn w-full" onClick={handleLogin}>
+          <button type="submit" className="btn w-full">
             Login
           </button>
         </div>
         <div className="flex items-center gap-1 justify-center mt-5">
           Don't have an account?
-          <a href="#" className="link">
+          <a href="/signup" className="link">
             Sign Up!
           </a>
         </div>
