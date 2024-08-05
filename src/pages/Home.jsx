@@ -17,7 +17,7 @@ const Home = () => {
   const [sortOrder, setSortOrder] = useState("asc");
 
   const { data, isLoading, isError, error } = useQuery(
-    ["studentList", token, page, pageLimit, sortOrder, searchQuery],
+    ["studentsList", token, page, pageLimit, sortOrder, searchQuery],
     () => Api.getStudents(token, page, pageLimit, sortOrder, searchQuery),
     {
       keepPreviousData: true,
@@ -35,7 +35,7 @@ const Home = () => {
   const totalPages = data.totalPages;
 
   return (
-    <div className="min-h-full w-full">
+    <div className="min-h-full w-full container">
       <main className="p-4">
         <section className="my-5 w-full flex items-center justify-between">
           <SearchBar onSearch={(query) => setSearchQuery(query)} />
@@ -58,7 +58,7 @@ const Home = () => {
             sort={setSortOrder}
           />
         </section>
-        <div className="flex justify-center items-center mt-4">
+        <div className="flex justify-center items-center py-8">
           <div className="inline-flex shadow-sm ">
             <button
               disabled={page <= 1}

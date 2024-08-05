@@ -20,7 +20,7 @@ const Header = () => {
           className="h-8 w-auto cursor-pointer"
           onClick={() => navigate.push("/home")}
         />
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-8 mr-3">
           <button
             onClick={() => navigate.push("/settings")}
             className="text-white hover:text-gray-400"

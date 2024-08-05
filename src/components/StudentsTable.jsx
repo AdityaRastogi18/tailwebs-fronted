@@ -42,7 +42,8 @@ const StudentsTable = ({ data, page, pageLimit, sort }) => {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("studentList");
+        queryClient.invalidateQueries("studentsList");
+        onClose();
       },
       onError: (error) => {
         console.error("Error adding student:", error);

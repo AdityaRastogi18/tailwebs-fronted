@@ -10,7 +10,7 @@ const Api = {
           "Content-Type": "application/x-www-form-urlencoded",
         },
       });
-      toast.success("Login successful!");
+      toast.success(response.data.msg);
       return response.data;
     } catch (error) {
       toast.error(error.response.data.msg);
@@ -85,7 +85,23 @@ const Api = {
           Authorization: `Bearer ${token}`,
         },
       });
-      toast.success("Student created successfully!");
+      toast.success(response.data.msg);
+      return response.data;
+    } catch (error) {
+      console.error("Error logging in:", error.message);
+      toast.error(error.response.data.msg);
+    }
+  },
+  updateUser: async (token, data) => {
+    const url = "http://localhost:3002/";
+    try {
+      const response = await axios.patch(url, data, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success("Password updated successfully!");
       return response.data;
     } catch (error) {
       console.error("Error logging in:", error.message);

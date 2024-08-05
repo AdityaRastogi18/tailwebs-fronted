@@ -31,7 +31,7 @@ const Settings = () => {
 
   const mutation = useMutation(
     async () => {
-      const response = await Api.updatePassword(token, newPassword);
+      const response = await Api.updateUser(token, { password: newPassword });
       return response.data;
     },
     {

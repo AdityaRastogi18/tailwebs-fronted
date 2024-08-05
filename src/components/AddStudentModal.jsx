@@ -26,13 +26,25 @@ const AddStudentModal = ({ isOpen, onClose }) => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries("studentsList");
+        clearForm();
         onClose();
       },
       onError: (error) => {
+        clearForm();
         console.error("Error adding student:", error);
       },
     }
   );
+
+  const clearForm = () => {
+    setFormData({
+      firstName: "",
+      lastName: "",
+      rollNum: 0,
+      subjectName: "",
+      marks: 0,
+    });
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -59,6 +71,11 @@ const AddStudentModal = ({ isOpen, onClose }) => {
     } else {
       setErrors(validationErrors);
     }
+  };
+
+  const handleCancel = () => {
+    clearForm();
+    onClose();
   };
 
   if (!isOpen) return null;
@@ -152,7 +169,7 @@ const AddStudentModal = ({ isOpen, onClose }) => {
           <div className="flex items-center justify-between">
             <button
               type="button"
-              onClick={onClose}
+              onClick={handleCancel}
               className="btn bg-gray-400 hover:bg-gray-600"
             >
               Cancel

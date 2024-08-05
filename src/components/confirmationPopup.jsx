@@ -12,7 +12,7 @@ const ConfirmationPopup = ({ isOpen, onClose, token, id }) => {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("studentList");
+        queryClient.invalidateQueries("studentsList");
         onClose();
       },
       onError: (error) => {
