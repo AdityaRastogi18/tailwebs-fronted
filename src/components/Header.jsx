@@ -17,7 +17,8 @@ const Header = () => {
         <img
           src="/images/tailwebsLogo.png"
           alt="tailwebsLogo"
-          className="h-8 w-auto"
+          className="h-8 w-auto cursor-pointer"
+          onClick={() => navigate.push("/home")}
         />
         <div className="flex items-center space-x-4">
           <button

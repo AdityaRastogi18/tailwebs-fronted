@@ -10,6 +10,7 @@ import Header from "./components/Header.jsx";
 const Login = lazy(() => import("./pages/Login"));
 const SignUp = lazy(() => import("./pages/SignUp"));
 const Home = lazy(() => import("./pages/Home"));
+const Settings = lazy(() => import("./pages/Settings"));
 
 function App() {
   const { isLoggedIn, loading } = useAuth();
@@ -26,7 +27,8 @@ function App() {
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={SignUp} />
-            <PrivateRoute path="/" component={Home} />
+            <PrivateRoute path="/home" component={Home} />
+            <PrivateRoute path="/settings" component={Settings} />
           </Switch>
         </div>
         <footer className="bottom-0 text-center py-4 bg-gray-100 mt-4">

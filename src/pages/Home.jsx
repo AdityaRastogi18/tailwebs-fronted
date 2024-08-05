@@ -11,12 +11,14 @@ const Home = () => {
   const { token } = useAuth();
 
   const [page, setPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
   const [pageLimit, setPageLimit] = useState(10);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [sortOrder, setSortOrder] = useState("asc");
 
   const { data, isLoading, isError, error } = useQuery(
-    ["studentList", token, page, pageLimit],
-    () => Api.getStudents(token, page, pageLimit),
+    ["studentList", token, page, pageLimit, sortOrder, searchQuery],
+    () => Api.getStudents(token, page, pageLimit, sortOrder, searchQuery),
     {
       keepPreviousData: true,
       refetchOnWindowFocus: false,
@@ -36,9 +38,7 @@ const Home = () => {
     <div className="min-h-full w-full">
       <main className="p-4">
         <section className="my-5 w-full flex items-center justify-between">
-          <SearchBar
-            onSearch={(query) => console.log("Search query:", query)}
-          />
+          <SearchBar onSearch={(query) => setSearchQuery(query)} />
           <button
             onClick={() => setIsModalOpen(true)}
             className="btn bg-red-500 hover:bg-red-600"
@@ -55,6 +55,7 @@ const Home = () => {
             data={data.students}
             page={page}
             pageLimit={pageLimit}
+            sort={setSortOrder}
           />
         </section>
         <div className="flex justify-center items-center mt-4">

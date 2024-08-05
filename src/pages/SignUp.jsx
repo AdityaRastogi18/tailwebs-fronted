@@ -2,6 +2,9 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import Api from "../services/Api";
+import { useMutation } from "react-query";
+import { useAuth } from "../contexts/authContext";
+import { useHistory } from "react-router-dom";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,6 +26,10 @@ const SignUp = () => {
     setFormData({ ...formData, [field]: e.target.value });
   };
 
+  const { login } = useAuth();
+
+  const navigate = useHistory();
+
   const handleValidation = () => {
     const newErrors = {};
     if (!formData.firstName) {
@@ -43,13 +50,28 @@ const SignUp = () => {
     return newErrors;
   };
 
+  const mutation = useMutation(
+    async () => {
+      const urlEncodedData = new URLSearchParams(formData).toString();
+      const response = await Api.signup(urlEncodedData);
+      return response;
+    },
+    {
+      onSuccess: (data) => {
+        login(data.token, data);
+        navigate.push("/home");
+      },
+      onError: (error) => {
+        console.error("Login error:", error);
+      },
+    }
+  );
+
   const handleSignUp = async (e) => {
     e.preventDefault();
     const newErrors = handleValidation();
     if (Object.keys(newErrors).length === 0) {
-      const urlEncodedData = new URLSearchParams(formData).toString();
-      const result = await Api.signup(urlEncodedData);
-      // todo - Handle login result
+      mutation.mutate();
     } else {
       setErrors(newErrors);
     }
@@ -57,9 +79,6 @@ const SignUp = () => {
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-xs sm:max-w-sm lg:max-w-md ">
-      {/* <h2 className="text-2xl font-bold mb-6 text-gray-900 text-center">
-        Sign Up
-      </h2> */}
       <img
         src="/images/tailwebsLogo.png"
         alt="tailwebsLogo"
@@ -121,15 +140,16 @@ const SignUp = () => {
             >
               <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
             </button>
-            {/* <a href="#" className="link mt-2 text-end w-full">
-            Forgot Password?
-          </a> */}
           </div>
           {errors.password && <p className="error-msg">{errors.password}</p>}
         </div>
         <div className="flex items-center justify-between">
-          <button type="button" className="btn w-full" onClick={handleSignUp}>
-            Login
+          <button
+            type="button"
+            className="btn bg-red-600 hover:bg-red-800 w-full"
+            onClick={handleSignUp}
+          >
+            Sign Up
           </button>
         </div>
         <div className="flex items-center gap-1 justify-center mt-5">

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import Api from "../services/Api";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { useAuth } from "../contexts/authContext";
 import { useHistory } from "react-router-dom";
 
@@ -45,23 +45,21 @@ const Login = () => {
   const mutation = useMutation(
     async () => {
       const urlEncodedData = new URLSearchParams(formData).toString();
-      const result = await Api.login(urlEncodedData);
-      return result;
+      const response = await Api.login(urlEncodedData);
+      return response;
     },
     {
       onSuccess: (data) => {
-        console.log("data", data);
         login(data.token, data);
-        navigate.push("/");
+        navigate.push("/home");
       },
       onError: (error) => {
         console.error("Login error:", error);
-        // Handle errors, e.g., show an error message
       },
     }
   );
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
     const newErrors = handleValidation();
     if (Object.keys(newErrors).length === 0) {
@@ -119,7 +117,10 @@ const Login = () => {
           {errors.password && <p className="error-msg">{errors.password}</p>}
         </div>
         <div className="flex items-center justify-between">
-          <button type="submit" className="btn w-full text-center">
+          <button
+            type="submit"
+            className="btn bg-red-600 hover:bg-red-800 w-full text-center"
+          >
             {mutation.isLoading ? "Loging In..." : "Login"}
           </button>
         </div>
