@@ -1,6 +1,4 @@
-Here’s a detailed `README.md` file for your Vite-based frontend project:
 
-```markdown
 # Tailwebs Frontend
 
 ## Dear Developer,
@@ -48,7 +46,7 @@ Tailwebs Frontend is a modern web application built with Vite, React, and Tailwi
 Before you begin, ensure you have the following installed:
 
 - [Node.js](https://nodejs.org/) (v14 or higher)
-```
+
 
 ## Setup
 
