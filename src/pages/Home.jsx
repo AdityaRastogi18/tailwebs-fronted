@@ -6,6 +6,7 @@ import { useAuth } from "../contexts/authContext";
 import StudentsTable from "../components/StudentsTable";
 import SearchBar from "../components/SearchBar";
 import AddStudentModal from "../components/AddStudentModal";
+import ErrorScreen from "../components/ErrorScreen";
 
 const Home = () => {
   const { token } = useAuth();
@@ -16,7 +17,7 @@ const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState("asc");
 
-  const { data, isLoading, isError, error } = useQuery(
+  const { data, isLoading, isError, error, refetch } = useQuery(
     ["studentsList", token, page, pageLimit, sortOrder, searchQuery],
     () => Api.getStudents(token, page, pageLimit, sortOrder, searchQuery),
     {
@@ -29,7 +30,7 @@ const Home = () => {
     return <Loader />;
   }
   if (isError) {
-    return <div>Error: {error.message}</div>;
+    return <ErrorScreen message={error.message} retry={refetch} />;
   }
 
   const totalPages = data.totalPages;
@@ -39,12 +40,6 @@ const Home = () => {
       <main className="p-4">
         <section className="my-5 w-full flex items-center justify-between">
           <SearchBar onSearch={(query) => setSearchQuery(query)} />
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="btn bg-red-500 hover:bg-red-600"
-          >
-            Add Student
-          </button>
         </section>
         <AddStudentModal
           isOpen={isModalOpen}
@@ -58,7 +53,7 @@ const Home = () => {
             sort={setSortOrder}
           />
         </section>
-        <div className="flex justify-center items-center py-8">
+        <div className="flex justify-between items-center py-8">
           <div className="inline-flex shadow-sm ">
             <button
               disabled={page <= 1}
@@ -86,6 +81,12 @@ const Home = () => {
               Next
             </button>
           </div>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="btn bg-red-500 hover:bg-red-600"
+          >
+            Add Student
+          </button>
         </div>
       </main>
     </div>

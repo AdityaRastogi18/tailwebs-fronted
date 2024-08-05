@@ -50,6 +50,12 @@ const ConfirmationPopup = ({ isOpen, onClose, token, id }) => {
           </button>
         </div>
       </div>
+      {mutation.isError && (
+        <ErrorScreen
+          message={mutation.error.message}
+          retry={() => mutation.mutate(studentData)}
+        />
+      )}
     </div>
   );
 };

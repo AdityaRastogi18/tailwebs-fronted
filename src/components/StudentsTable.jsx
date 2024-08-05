@@ -75,11 +75,9 @@ const StudentsTable = ({ data, page, pageLimit, sort }) => {
       <table className="min-w-full bg-white border border-gray-200">
         <thead className="bg-gray-100 border-b border-gray-200">
           <tr>
-            <th className="px-4 py-2 border-b text-left text-gray-600">
-              S. No.
-            </th>
-            <th className="px-4 py-2 border-b text-left text-gray-600">Name</th>
-            <th className="px-4 py-2 border-b text-left text-gray-600">
+            <th className="th">S. No.</th>
+            <th className="th">Name</th>
+            <th className="th">
               Roll Number{" "}
               <button onClick={handleSort} className="text-gray-600">
                 <FontAwesomeIcon
@@ -87,15 +85,9 @@ const StudentsTable = ({ data, page, pageLimit, sort }) => {
                 />
               </button>
             </th>
-            <th className="px-4 py-2 border-b text-left text-gray-600">
-              Subject Name
-            </th>
-            <th className="px-4 py-2 border-b text-left text-gray-600">
-              Subject Marks
-            </th>
-            <th className="px-4 py-2 border-b text-left text-gray-600">
-              Actions
-            </th>
+            <th className="th">Subject Name</th>
+            <th className="th">Subject Marks</th>
+            <th className="th">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -104,10 +96,8 @@ const StudentsTable = ({ data, page, pageLimit, sort }) => {
 
             return (
               <tr key={entry._id} className="hover:bg-gray-100">
-                <td className="px-4 py-2 border-b">
-                  {(page - 1) * pageLimit + index + 1}
-                </td>
-                <td className="px-4 py-2 border-b">
+                <td className="td">{(page - 1) * pageLimit + index + 1}</td>
+                <td className="td">
                   {isEditing ? (
                     <input
                       type="text"
@@ -120,7 +110,7 @@ const StudentsTable = ({ data, page, pageLimit, sort }) => {
                     entry.firstName
                   )}
                 </td>
-                <td className="px-4 py-2 border-b">
+                <td className="td">
                   {isEditing ? (
                     <input
                       type="text"
@@ -133,7 +123,7 @@ const StudentsTable = ({ data, page, pageLimit, sort }) => {
                     entry.rollNum
                   )}
                 </td>
-                <td className="px-4 py-2 border-b">
+                <td className="td">
                   {isEditing ? (
                     <input
                       type="text"
@@ -146,7 +136,7 @@ const StudentsTable = ({ data, page, pageLimit, sort }) => {
                     entry.subjectName
                   )}
                 </td>
-                <td className="px-4 py-2 border-b">
+                <td className="td">
                   {isEditing ? (
                     <input
                       type="number"
@@ -161,7 +151,7 @@ const StudentsTable = ({ data, page, pageLimit, sort }) => {
                     entry.marks
                   )}
                 </td>
-                <td className="px-4 py-2 border-b">
+                <td className="td">
                   {isEditing ? (
                     <>
                       <button
@@ -205,6 +195,12 @@ const StudentsTable = ({ data, page, pageLimit, sort }) => {
         id={rowId}
         token={token}
       />
+      {mutation.isError && (
+        <ErrorScreen
+          message={mutation.error.message}
+          retry={() => mutation.mutate(studentData)}
+        />
+      )}
     </div>
   );
 };
