@@ -97,8 +97,4 @@ This project is licensed under the MIT License. See the [LICENSE](./LICENSE) fil
 
 ## Contact
 
-For any questions or further details, feel free to reach out.
-
-```
-
-```
+For any questions or further information, please reach out to [adityarastogi1801@gmail.com](mailto:adityarastogi1801@gmail.com).
