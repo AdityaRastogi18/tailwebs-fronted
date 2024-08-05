@@ -1,29 +1,50 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext();
 
-const AuthProvider = ({ children }) => {
-  const [authState, setAuthState] = useState({
-    isLoggedIn: false,
-    user: null,
-    token: null,
-  });
+export const AuthProvider = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const login = (newToken, userInfo) => {
-    setAuthState({ isLoggedIn: true, user: userInfo, token: newToken });
+  const login = async (token, userData) => {
+    localStorage.setItem("authToken", token);
+
+    try {
+      setLoading(true);
+      setUser(userData);
+      setToken(token);
+      setIsLoggedIn(true);
+    } catch (error) {
+      console.error("Failed to fetch user data:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const logout = () => {
-    setAuthState({ isLoggedIn: false, user: null, token: null });
+    setUser(null);
+    setIsLoggedIn(false);
+    localStorage.removeItem("authToken");
   };
 
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      login(token);
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ ...authState, login, logout }}>
+    <AuthContext.Provider
+      value={{ isLoggedIn, user, loading, token, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
 };
 
-const useAuth = () => React.useContext(AuthContext);
-
-export { AuthProvider, useAuth };
+export const useAuth = () => useContext(AuthContext);

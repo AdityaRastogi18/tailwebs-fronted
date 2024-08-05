@@ -24,7 +24,23 @@ const Api = {
           "Content-Type": "application/x-www-form-urlencoded",
         },
       });
-      toast.success("Login successful!");
+      toast.success("SignUp successful!");
+      return response.data;
+    } catch (error) {
+      console.error("Error logging in:", error.message);
+      toast.error(error.response.data.msg);
+    }
+  },
+  getStudents: async (newToken, page, pageLimit) => {
+    console.log("new token", newToken);
+    const url = `http://localhost:3002/student?limit=${pageLimit}&page=${page}`;
+    try {
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${newToken}`,
+        },
+      });
+      // toast.success("Login successful!");
       return response.data;
     } catch (error) {
       console.error("Error logging in:", error.message);

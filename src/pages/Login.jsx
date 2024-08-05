@@ -50,7 +50,8 @@ const Login = () => {
     },
     {
       onSuccess: (data) => {
-        login(data.token, data.user);
+        console.log("data", data);
+        login(data.token, data);
         navigate.push("/");
       },
       onError: (error) => {
