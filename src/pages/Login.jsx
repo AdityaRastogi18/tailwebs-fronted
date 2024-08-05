@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import Api from "../services/Api";
+import { useMutation } from "react-query";
+import { useAuth } from "../contexts/authContext";
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -10,6 +13,10 @@ const Login = () => {
     password: "",
   });
   const [errors, setErrors] = useState({});
+
+  const { login } = useAuth();
+
+  const navigate = useHistory();
 
   const togglePassword = () => {
     setShowPassword(!showPassword);
@@ -35,13 +42,29 @@ const Login = () => {
     return newErrors;
   };
 
+  const mutation = useMutation(
+    async () => {
+      const urlEncodedData = new URLSearchParams(formData).toString();
+      const result = await Api.login(urlEncodedData);
+      return result;
+    },
+    {
+      onSuccess: (data) => {
+        login(data.token, data.user);
+        navigate.push("/");
+      },
+      onError: (error) => {
+        console.error("Login error:", error);
+        // Handle errors, e.g., show an error message
+      },
+    }
+  );
+
   const handleLogin = async (e) => {
     e.preventDefault();
     const newErrors = handleValidation();
     if (Object.keys(newErrors).length === 0) {
-      const urlEncodedData = new URLSearchParams(formData).toString();
-      const result = await Api.login(urlEncodedData);
-      // todo - Handle login result
+      mutation.mutate();
     } else {
       setErrors(newErrors);
     }
@@ -95,8 +118,8 @@ const Login = () => {
           {errors.password && <p className="error-msg">{errors.password}</p>}
         </div>
         <div className="flex items-center justify-between">
-          <button type="submit" className="btn w-full">
-            Login
+          <button type="submit" className="btn w-full text-center">
+            {mutation.isLoading ? "Loging In..." : "Login"}
           </button>
         </div>
         <div className="flex items-center gap-1 justify-center mt-5">
