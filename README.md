@@ -11,8 +11,10 @@ Tailwebs Frontend is a modern web application built with Vite, React, and Tailwi
 ## Features
 
 - **Login Functionality**:
+
   - Users can log in via a dedicated login screen.
   - Authenticates users and handles errors appropriately.
+
 - **Teacher Portal Home & Student Listing Screen**:
 
   - Displays a list of students with their names, subject names, and marks.
@@ -24,6 +26,7 @@ Tailwebs Frontend is a modern web application built with Vite, React, and Tailwi
   - Checks for existing records and updates or creates new entries accordingly.
 
 - **Error Handling and Loading States**:
+
   - Includes error screens and loading indicators to manage and display different states of the application.
 
 ## Additional Features
@@ -40,6 +43,10 @@ Tailwebs Frontend is a modern web application built with Vite, React, and Tailwi
 - **User Functionality**:
 
   - Features for updating user details, including password management.
+
+- **Private Routes**:
+
+  - Private routes for better access control and data authentication.
 
 ## Prerequisites
 
