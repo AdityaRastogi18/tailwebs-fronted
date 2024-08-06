@@ -35,11 +35,16 @@ const Home = () => {
 
   const totalPages = data.totalPages;
 
+  const handleSearchQuery = (query) => {
+    setPage(1);
+    setSearchQuery(query);
+  };
+
   return (
     <div className="min-h-full w-full container">
       <main className="p-4">
         <section className="my-5 w-full flex items-center justify-between">
-          <SearchBar onSearch={(query) => setSearchQuery(query)} />
+          <SearchBar onSearch={(query) => handleSearchQuery(query)} />
         </section>
         <AddStudentModal
           isOpen={isModalOpen}
@@ -50,7 +55,7 @@ const Home = () => {
             data={data.students}
             page={page}
             pageLimit={pageLimit}
-            sort={setSortOrder}
+            onSort={(sortOrd) => setSortOrder(sortOrd)}
           />
         </section>
         <div className="flex justify-between items-center py-8">

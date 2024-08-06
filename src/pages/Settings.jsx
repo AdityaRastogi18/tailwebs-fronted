@@ -5,6 +5,7 @@ import Api from "../services/Api";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash, faUser } from "@fortawesome/free-solid-svg-icons";
+import { useHistory } from "react-router-dom";
 
 const Settings = () => {
   const { user, token } = useAuth();
@@ -12,6 +13,8 @@ const Settings = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [newPassword, setNewPassword] = useState("");
   const [error, setError] = useState("");
+
+  const navigate = useHistory();
 
   const handleChange = (e) => {
     setNewPassword(e.target.value);
@@ -36,7 +39,6 @@ const Settings = () => {
     },
     {
       onSuccess: () => {
-        toast.success("Password updated successfully!");
         setIsChangingPassword(false);
         setNewPassword("");
       },
@@ -72,12 +74,18 @@ const Settings = () => {
       </div>
       <div className="mt-6 w-full">
         {!isChangingPassword ? (
-          <div className="text-center">
+          <div className="flex flex-col justify-center items-center gap-3">
             <button
               onClick={() => setIsChangingPassword(true)}
-              className="btn bg-red-500 hover:bg-red-600"
+              className="btn bg-cyan-600 hover:bg-cyan-800"
             >
               Change Password
+            </button>
+            <button
+              onClick={() => navigate.push("/home")}
+              className="text-red-400  hover:text-red-500 font-bold"
+            >
+              Go Back
             </button>
           </div>
         ) : (
@@ -107,7 +115,7 @@ const Settings = () => {
             <div className="flex flex-col justify-center items-center gap-5 mt-5 w-full">
               <button
                 onClick={handlePasswordChange}
-                className={`btn bg-green-500 hover:bg-green-600 ${
+                className={`btn bg-green-600 hover:bg-green-800 ${
                   mutation.isLoading ? "opacity-50 cursor-not-allowed" : ""
                 }`}
                 disabled={mutation.isLoading}
@@ -116,7 +124,7 @@ const Settings = () => {
               </button>
               <button
                 onClick={() => setIsChangingPassword(false)}
-                className={`btn bg-gray-400 hover:bg-gray-600 ${
+                className={`font-bold text-gray-400 hover:text-gray-600 ${
                   mutation.isLoading ? "opacity-50 cursor-not-allowed" : ""
                 }`}
                 disabled={mutation.isLoading}

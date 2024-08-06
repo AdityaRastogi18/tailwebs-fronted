@@ -13,7 +13,7 @@ import Api from "../services/Api";
 import { useAuth } from "../contexts/authContext";
 import ConfirmationPopup from "./confirmationPopup";
 
-const StudentsTable = ({ data, page, pageLimit, sort }) => {
+const StudentsTable = ({ data, page, pageLimit, onSort }) => {
   const [editingRowId, setEditingRowId] = useState(null);
   const [rowId, setRowId] = useState(null);
   const [editedData, setEditedData] = useState({});
@@ -66,8 +66,9 @@ const StudentsTable = ({ data, page, pageLimit, sort }) => {
   };
 
   const handleSort = () => {
-    setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
-    sort(sortOrder);
+    const newSortOrder = sortOrder === "asc" ? "desc" : "asc";
+    setSortOrder(newSortOrder);
+    onSort(newSortOrder);
   };
 
   return (

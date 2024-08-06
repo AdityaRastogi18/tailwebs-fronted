@@ -10,6 +10,7 @@ const Login = lazy(() => import("./pages/Login"));
 const SignUp = lazy(() => import("./pages/SignUp"));
 const Home = lazy(() => import("./pages/Home"));
 const Settings = lazy(() => import("./pages/Settings"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 function App() {
   const { isLoggedIn, loading } = useAuth();
@@ -28,6 +29,7 @@ function App() {
             <Route path="/signup" component={SignUp} />
             <PrivateRoute path="/home" component={Home} />
             <PrivateRoute path="/settings" component={Settings} />
+            <Route component={NotFound} />
           </Switch>
         </div>
         <Footer />

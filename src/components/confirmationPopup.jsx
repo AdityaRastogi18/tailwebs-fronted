@@ -31,7 +31,7 @@ const ConfirmationPopup = ({ isOpen, onClose, token, id }) => {
     <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-lg w-full max-w-md mx-4 p-6">
         <h2 className="text-2xl font-bold mb-4">Confirm Deletion</h2>
-        <p>Are you sure you want to delete this user?</p>
+        <p>Are you sure you want to delete this entry?</p>
         <div className="flex items-center justify-end mt-4">
           <button
             onClick={onClose}

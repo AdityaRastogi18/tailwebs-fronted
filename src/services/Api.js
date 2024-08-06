@@ -1,9 +1,11 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 const Api = {
   login: async (data) => {
-    const url = "http://localhost:3002/login";
+    const url = `${BASE_URL}/login`;
     try {
       const response = await axios.post(url, data, {
         headers: {
@@ -14,70 +16,75 @@ const Api = {
       return response.data;
     } catch (error) {
       toast.error(error.response.data.msg);
+      throw error;
     }
   },
+
   signup: async (data) => {
-    const url = "http://localhost:3002/signup";
+    const url = `${BASE_URL}/signup`;
     try {
       const response = await axios.post(url, data, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
       });
-      toast.success("SignUp successful!");
+      toast.success(response.data.msg);
       return response.data;
     } catch (error) {
-      console.error("Error logging in:", error.message);
       toast.error(error.response.data.msg);
+      throw error;
     }
   },
+
   getStudents: async (token, page, pageLimit, sortOrder, query) => {
-    const url = `http://localhost:3002/student?limit=${pageLimit}&page=${page}&search=${query}&sort=${sortOrder}`;
+    const url = `${BASE_URL}/student?limit=${pageLimit}&page=${page}&search=${query}&sort=${sortOrder}`;
     try {
       const response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      // toast.success("Login successful!");
       return response.data;
     } catch (error) {
-      console.error("Error logging in:", error.message);
       toast.error(error.response.data.msg);
+      throw error;
     }
   },
+
   editStudentEntry: async (token, id, data) => {
-    const url = `http://localhost:3002/student/${id}`;
+    const url = `${BASE_URL}/student/${id}`;
     try {
       const response = await axios.patch(url, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      toast.success("Entry updated successfully!");
+      toast.success(response.data.msg);
       return response.data;
     } catch (error) {
-      console.error("Error logging in:", error.message);
       toast.error(error.response.data.msg);
+      throw error;
     }
   },
+
   deleteStudentEntry: async (token, id) => {
-    const url = `http://localhost:3002/student/${id}`;
+    const url = `${BASE_URL}/student/${id}`;
     try {
       const response = await axios.delete(url, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      toast.success("Student deleted successfully!");
+      toast.success(response.data.msg);
       return response.data;
     } catch (error) {
-      console.error("Error logging in:", error.message);
       toast.error(error?.response?.data.msg);
+      throw error;
     }
   },
+
   addStudent: async (token, student) => {
-    const url = "http://localhost:3002/student";
+    const url = `${BASE_URL}/student`;
     try {
       const response = await axios.post(url, student, {
         headers: {
@@ -88,12 +95,13 @@ const Api = {
       toast.success(response.data.msg);
       return response.data;
     } catch (error) {
-      console.error("Error logging in:", error.message);
       toast.error(error.response.data.msg);
+      throw error;
     }
   },
+
   updateUser: async (token, data) => {
-    const url = "http://localhost:3002/";
+    const url = BASE_URL;
     try {
       const response = await axios.patch(url, data, {
         headers: {
@@ -101,11 +109,11 @@ const Api = {
           Authorization: `Bearer ${token}`,
         },
       });
-      toast.success("Password updated successfully!");
+      toast.success(response.data.msg);
       return response.data;
     } catch (error) {
-      console.error("Error logging in:", error.message);
       toast.error(error.response.data.msg);
+      throw error;
     }
   },
 };

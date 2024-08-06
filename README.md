@@ -1,4 +1,3 @@
-
 # Tailwebs Frontend
 
 ## Dear Developer,
@@ -29,7 +28,7 @@ Tailwebs Frontend is a modern web application built with Vite, React, and Tailwi
 
 ## Additional Features
 
-- **Search Functionality**:
+- **Debounce Search Functionality**:
 
   - Search students by name, roll number, or subject name to quickly find records.
 
@@ -39,6 +38,7 @@ Tailwebs Frontend is a modern web application built with Vite, React, and Tailwi
   - Allows sorting of student records by roll number.
 
 - **User Functionality**:
+
   - Features for updating user details, including password management.
 
 ## Prerequisites
@@ -46,7 +46,6 @@ Tailwebs Frontend is a modern web application built with Vite, React, and Tailwi
 Before you begin, ensure you have the following installed:
 
 - [Node.js](https://nodejs.org/) (v14 or higher)
-
 
 ## Setup
 
@@ -71,6 +70,14 @@ or
 
 ```bash
 yarn install
+```
+
+### Configure Environment Variables
+
+Create a `.env` file in the root directory of the project (if it doesn’t already exist) and add the following environment variables:
+
+```env
+VITE_API_URL= your_backend_url
 ```
 
 ### Run the Development Server
