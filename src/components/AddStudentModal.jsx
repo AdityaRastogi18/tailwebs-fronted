@@ -87,7 +87,7 @@ const AddStudentModal = ({ isOpen, onClose }) => {
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              First Name
+              First Name <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
@@ -116,7 +116,7 @@ const AddStudentModal = ({ isOpen, onClose }) => {
           </div>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              Roll Number
+              Roll Number <span className="text-red-500">*</span>
             </label>
             <input
               type="number"
@@ -131,7 +131,7 @@ const AddStudentModal = ({ isOpen, onClose }) => {
           </div>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              Subject Name
+              Subject Name <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
