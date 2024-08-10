@@ -149,7 +149,6 @@ const SignUp = () => {
             className="btn bg-red-600 hover:bg-red-800 w-full"
             onClick={handleSignUp}
           >
-            Sign Up
             {mutation.isLoading ? <BtnLoader /> : "Sign Up"}
           </button>
         </div>
