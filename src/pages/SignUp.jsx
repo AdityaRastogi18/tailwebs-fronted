@@ -5,6 +5,7 @@ import Api from "../services/Api";
 import { useMutation } from "react-query";
 import { useAuth } from "../contexts/authContext";
 import { useHistory } from "react-router-dom";
+import BtnLoader from "../components/BtnLoader";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);

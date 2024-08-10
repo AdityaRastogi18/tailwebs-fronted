@@ -20,7 +20,13 @@ function App() {
   }
 
   return (
-    <Suspense fallback={<Loader />}>
+    <Suspense
+      fallback={
+        <div className="h-screen">
+          <Loader />
+        </div>
+      }
+    >
       <div className="min-h-screen flex flex-col bg-gray-100">
         {isLoggedIn && <Header />}
         <div className=" flex-grow flex items-center justify-center">
