@@ -150,6 +150,7 @@ const SignUp = () => {
             onClick={handleSignUp}
           >
             Sign Up
+            {mutation.isLoading ? <BtnLoader /> : "Sign Up"}
           </button>
         </div>
         <div className="flex items-center gap-1 justify-center mt-5">

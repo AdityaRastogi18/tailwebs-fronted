@@ -5,6 +5,8 @@ import Api from "../services/Api";
 import { useMutation, useQueryClient } from "react-query";
 import { useAuth } from "../contexts/authContext";
 import { useHistory } from "react-router-dom";
+import Loader from "../components/Loader";
+import BtnLoader from "../components/BtnLoader";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -121,7 +123,7 @@ const Login = () => {
             type="submit"
             className="btn bg-red-600 hover:bg-red-800 w-full text-center"
           >
-            {mutation.isLoading ? "Loging In..." : "Login"}
+            {mutation.isLoading ? <BtnLoader /> : "Login"}
           </button>
         </div>
         <div className="flex items-center gap-1 justify-center mt-5">
