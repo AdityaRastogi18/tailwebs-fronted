@@ -21,7 +21,7 @@ function App() {
 
   return (
     <Suspense fallback={<Loader />}>
-      <div className=" min-h-screen flex flex-col bg-gray-100">
+      <div className="min-h-screen flex flex-col bg-gray-100">
         {isLoggedIn && <Header />}
         <div className=" flex-grow flex items-center justify-center">
           <Switch>
