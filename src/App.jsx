@@ -25,7 +25,7 @@ function App() {
         {isLoggedIn && <Header />}
         <div className=" flex-grow flex items-center justify-center">
           <Switch>
-            <Route path="/login" component={Login} />
+            <Route path="/" component={Login} />
             <Route path="/signup" component={SignUp} />
             <PrivateRoute path="/home" component={Home} />
             <PrivateRoute path="/settings" component={Settings} />
