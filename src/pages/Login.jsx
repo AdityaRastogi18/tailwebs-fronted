@@ -117,12 +117,14 @@ const Login = () => {
             </button>
           </div>
           {errors.password && <p className="error-msg">{errors.password}</p>}
-          <button
-            onClick={() => navigate.push("/forgot-password")}
-            className="text-red-500  hover:text-red-600 text-sm font-semibold w-full text-right mt-2"
-          >
-            Forgot Password?
-          </button>
+          <div className="w-full text-right">
+            <button
+              onClick={() => navigate.push("/forgot-password")}
+              className="text-red-500  hover:text-red-600 text-sm font-semibold  mt-2"
+            >
+              Forgot Password?
+            </button>
+          </div>
         </div>
         <div className="flex items-center justify-between">
           <button
