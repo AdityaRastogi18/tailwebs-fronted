@@ -26,7 +26,7 @@ function App() {
   return (
     <Suspense
       fallback={
-        <div className=",min-h-screen">
+        <div className="min-h-screen">
           <Loader />
         </div>
       }
