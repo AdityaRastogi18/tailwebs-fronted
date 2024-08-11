@@ -16,8 +16,6 @@ const ResetPassword = () => {
 
   const authToken = token;
 
-  console.log("token", token, authToken);
-
   const handleChange = (e) => {
     setNewPassword(e.target.value);
     if (error) {
