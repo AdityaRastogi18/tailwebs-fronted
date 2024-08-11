@@ -116,6 +116,22 @@ const Api = {
       throw error;
     }
   },
+
+  forgotPassword: async (data) => {
+    const url = `${BASE_URL}/forgotPassword`;
+    try {
+      const response = await axios.post(url, data, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      });
+      toast.success(response.data.msg);
+      return response.data;
+    } catch (error) {
+      toast.error(error.response.data.msg);
+      throw error;
+    }
+  },
 };
 
 export default Api;
