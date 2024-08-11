@@ -18,13 +18,17 @@ function App() {
   const { isLoggedIn, loading } = useAuth();
 
   if (loading) {
-    return <Loader />;
+    return (
+      <div className="min-h-screen">
+        <Loader />
+      </div>
+    );
   }
 
   return (
     <Suspense
       fallback={
-        <div className="h-screen">
+        <div className="min-h-screen">
           <Loader />
         </div>
       }
