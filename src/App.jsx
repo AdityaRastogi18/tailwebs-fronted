@@ -18,9 +18,11 @@ function App() {
   const { isLoggedIn, loading } = useAuth();
 
   if (loading) {
-    return <div className="min-h-screen">
-          <Loader />
-        </div>;
+    return (
+      <div className="min-h-screen">
+        <Loader />
+      </div>
+    );
   }
 
   return (
