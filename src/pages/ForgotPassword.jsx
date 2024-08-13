@@ -3,7 +3,6 @@ import { useMutation } from "react-query";
 import { useHistory } from "react-router-dom";
 
 import BtnLoader from "../components/BtnLoader";
-import ErrorScreen from "../components/ErrorScreen";
 import Api from "../services/Api";
 
 const ForgotPassword = () => {
@@ -18,11 +17,6 @@ const ForgotPassword = () => {
   const updateFormData = (e, field) => {
     setErrors({ ...errors, [field]: "" });
     setFormData({ ...formData, [field]: e.target.value });
-  };
-
-  const goBack = () => {
-    setEmailSent(false);
-    navigate.push("/home");
   };
 
   const handleValidation = () => {
@@ -46,7 +40,6 @@ const ForgotPassword = () => {
       },
       onError: (error) => {
         console.error("Error:", error);
-        return <ErrorScreen />;
       },
     }
   );

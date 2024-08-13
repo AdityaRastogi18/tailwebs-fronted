@@ -186,12 +186,6 @@ const AddStudentModal = ({ isOpen, onClose }) => {
           </div>
         </form>
       </div>
-      {mutation.isError && (
-        <ErrorScreen
-          message={mutation.error.message}
-          retry={() => mutation.mutate(studentData)}
-        />
-      )}
     </div>
   );
 };

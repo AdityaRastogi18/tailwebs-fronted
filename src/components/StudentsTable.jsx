@@ -196,12 +196,6 @@ const StudentsTable = ({ data, page, pageLimit, onSort }) => {
         id={rowId}
         token={token}
       />
-      {mutation.isError && (
-        <ErrorScreen
-          message={mutation.error.message}
-          retry={() => mutation.mutate(studentData)}
-        />
-      )}
     </div>
   );
 };
